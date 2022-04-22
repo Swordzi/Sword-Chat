@@ -1,7 +1,6 @@
-// BSD 3-Clause License
+// GNU AFFERO GENERAL PUBLIC LICENSE
 //
-// Copyright (c) 2022, Iiro Polso
-// All rights reserved.
+// Version 3, 19 November 2007
 
 import 'package:flutter/material.dart';
 
@@ -24,18 +23,21 @@ class ChatApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('SwordChat!'),
+          title: const Text('SwordChat!'),
         ),
         body: Column(
           children: [
             Text(questions[questionIndex]),
             ElevatedButton(
-                child: Text("Yes"),
+                child: const Text("Yes"),
                 onPressed: () => {email = true, print(email)}),
             ElevatedButton(
-              child: Text('No'),
-              onPressed: () => {email = false, print(email)},
-            ),
+                child: const Text('No'),
+                onPressed: () => {email = false, print(email)}),
+            ElevatedButton(
+              child: const Text("Other"),
+              onPressed: () => {print("Hi")},
+            )
           ],
         ),
       ),
