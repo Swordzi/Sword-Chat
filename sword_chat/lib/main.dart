@@ -2,24 +2,35 @@
 //
 // Version 3, 19 November 2007
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(ChatApp());
 
-class ChatApp extends StatelessWidget {
+class ChatApp extends StatefulWidget {
+
+}
+
+class ChatAppState extends State {
   bool pnumber = false;
   bool email = false;
   var questionIndex = 0;
 
   void answerQuestion() {
     questionIndex = questionIndex + 1;
-    print(questionIndex);
+    if (kDebugMode) {
+      print(questionIndex);
+    }
   }
 
   // Override is to tell flutter that we want to override the base widget.
   @override
   Widget build(BuildContext context) {
-    var questions = ['Would you like to use an email?', ''];
+    var questions = [
+      'Would you like to use an email?',
+      'Would you like to use a phone number?',
+      'Would you like to use a TOKEN?'
+    ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
