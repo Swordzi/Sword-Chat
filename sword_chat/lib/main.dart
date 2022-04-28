@@ -8,10 +8,13 @@ import 'package:flutter/material.dart';
 void main() => runApp(ChatApp());
 
 class ChatApp extends StatefulWidget {
-
+  @override
+  State<StatefulWidget> createState() {
+    return ChatAppState();
+  }
 }
 
-class ChatAppState extends State {
+class ChatAppState extends State<ChatApp> {
   bool pnumber = false;
   bool email = false;
   var questionIndex = 0;
