@@ -1,2 +1,2 @@
 # Sword-Chat
-A Free abd Open-Source Chat application that is built with flutter 
+A Free and Open-Source Chat application that is built with flutter 
