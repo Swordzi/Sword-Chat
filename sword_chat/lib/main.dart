@@ -2,7 +2,7 @@
 //
 // Version 3, 19 November 2007
 
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(ChatApp());
@@ -21,9 +21,7 @@ class ChatAppState extends State<ChatApp> {
 
   void answerQuestion() {
     questionIndex = questionIndex + 1;
-    if (kDebugMode) {
-      print(questionIndex);
-    }
+    print(questionIndex);
   }
 
   // Override is to tell flutter that we want to override the base widget.
@@ -32,7 +30,7 @@ class ChatAppState extends State<ChatApp> {
     var questions = [
       'Would you like to use an email?',
       'Would you like to use a phone number?',
-      'Would you like to use a TOKEN?'
+      'Would you like to use a TOKEN?',
     ];
     return MaterialApp(
       home: Scaffold(
@@ -44,13 +42,23 @@ class ChatAppState extends State<ChatApp> {
             Text(questions[questionIndex]),
             ElevatedButton(
                 child: const Text("Yes"),
-                onPressed: () => {email = true, print(email)}),
+                onPressed: () => {
+                      email = true,
+                      print(email),
+                    }),
             ElevatedButton(
                 child: const Text('No'),
-                onPressed: () => {email = false, print(email)}),
+                onPressed: () => {
+                      answerQuestion,
+                      email = false,
+                      print(email),
+                    }),
             ElevatedButton(
               child: const Text("Other"),
-              onPressed: () => {print("Hi")},
+              onPressed: () => {
+                answerQuestion,
+                print("Hi"),
+              },
             )
           ],
         ),
