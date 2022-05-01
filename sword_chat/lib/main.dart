@@ -4,10 +4,13 @@
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:sword_chat/question.dart';
 
 void main() => runApp(ChatApp());
 
 class ChatApp extends StatefulWidget {
+  const ChatApp({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _ChatAppState();
@@ -19,7 +22,7 @@ class _ChatAppState extends State<ChatApp> {
   bool email = false;
   var _questionIndex = 0;
 
-  void answerQuestion() {
+  void _answerQuestion() {
     if (_questionIndex < 2) {
       setState(() {
         _questionIndex = _questionIndex + 1;
@@ -47,19 +50,19 @@ class _ChatAppState extends State<ChatApp> {
         ),
         body: Column(
           children: [
-            Text(questions[_questionIndex]),
+            Question(questions[_questionIndex]),
             ElevatedButton(
               child: const Text("Yes"),
-              onPressed: answerQuestion,
+              onPressed: _answerQuestion,
             ),
             ElevatedButton(
               child: const Text('No'),
-              onPressed: answerQuestion,
+              onPressed: _answerQuestion,
             ),
             ElevatedButton(
               child: const Text("Other"),
               onPressed: () => {
-                answerQuestion,
+                _answerQuestion,
                 print("Hi"),
               },
             )
