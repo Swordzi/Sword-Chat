@@ -2,7 +2,7 @@
 //
 // Version 3, 19 November 2007
 
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(ChatApp());
@@ -10,18 +10,26 @@ void main() => runApp(ChatApp());
 class ChatApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return ChatAppState();
+    return _ChatAppState();
   }
 }
 
-class ChatAppState extends State<ChatApp> {
+class _ChatAppState extends State<ChatApp> {
   bool pnumber = false;
   bool email = false;
-  var questionIndex = 0;
+  var _questionIndex = 0;
 
   void answerQuestion() {
-    questionIndex = questionIndex + 1;
-    print(questionIndex);
+    if (_questionIndex < 2) {
+      setState(() {
+        _questionIndex = _questionIndex + 1;
+      });
+      if (kDebugMode) {
+        print(_questionIndex);
+      }
+    } else {
+      print("Too high number dummy");
+    }
   }
 
   // Override is to tell flutter that we want to override the base widget.
@@ -39,20 +47,15 @@ class ChatAppState extends State<ChatApp> {
         ),
         body: Column(
           children: [
-            Text(questions[questionIndex]),
+            Text(questions[_questionIndex]),
             ElevatedButton(
-                child: const Text("Yes"),
-                onPressed: () => {
-                      email = true,
-                      print(email),
-                    }),
+              child: const Text("Yes"),
+              onPressed: answerQuestion,
+            ),
             ElevatedButton(
-                child: const Text('No'),
-                onPressed: () => {
-                      answerQuestion,
-                      email = false,
-                      print(email),
-                    }),
+              child: const Text('No'),
+              onPressed: answerQuestion,
+            ),
             ElevatedButton(
               child: const Text("Other"),
               onPressed: () => {
