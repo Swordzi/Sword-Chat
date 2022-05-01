@@ -2,6 +2,8 @@
 //
 // Version 3, 19 November 2007
 
+import './answer.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sword_chat/question.dart';
@@ -39,33 +41,34 @@ class _ChatAppState extends State<ChatApp> {
   @override
   Widget build(BuildContext context) {
     var questions = [
-      'Would you like to use an email?',
-      'Would you like to use a phone number?',
-      'Would you like to use a TOKEN?',
+      {
+        'questionText': 'Would you like to use an email?',
+        'answers': ['Yes', 'No'],
+      },
+      {
+        'questionText': 'Would you like to use a phone number?',
+        'answers': ['Yes', 'No'],
+      },
+      {
+        'questionText': 'Would you like to use a TOKEN?',
+        'answers': ['Yes', 'No'],
+      },
     ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('SwordChat!'),
+          backgroundColor: Colors.teal,
+          centerTitle: true,
+          title: const Text(
+            'Setup',
+          ),
         ),
         body: Column(
           children: [
             Question(questions[_questionIndex]),
-            ElevatedButton(
-              child: const Text("Yes"),
-              onPressed: _answerQuestion,
-            ),
-            ElevatedButton(
-              child: const Text('No'),
-              onPressed: _answerQuestion,
-            ),
-            ElevatedButton(
-              child: const Text("Other"),
-              onPressed: () => {
-                _answerQuestion,
-                print("Hi"),
-              },
-            )
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
+            Answer(_answerQuestion),
           ],
         ),
       ),
