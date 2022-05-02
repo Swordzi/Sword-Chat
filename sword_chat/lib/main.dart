@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sword_chat/question.dart';
 
-void main() => runApp(ChatApp());
+void main() => runApp(const ChatApp());
 
 class ChatApp extends StatefulWidget {
   const ChatApp({Key? key}) : super(key: key);
@@ -33,29 +33,33 @@ class _ChatAppState extends State<ChatApp> {
         print(_questionIndex);
       }
     } else {
-      print("Too high number dummy");
+      if (kDebugMode) {
+        print("Too high number dummy");
+      }
     }
   }
 
   // Override is to tell flutter that we want to override the base widget.
   @override
   Widget build(BuildContext context) {
-    var questions = [
+    const questions = [
       {
-        'questionText': 'Would you like to use an email?',
-        'answers': ['Yes', 'No', 'Hi'],
+        'questionText': 'What would you like to use to authenticate yourself?',
+        'answers': ['Phone Number', 'Email', 'Token'],
       },
       {
-        'questionText': 'Would you like to use a phone number?',
-        'answers': ['Yes', 'No', 'Hello'],
+        'questionText': 'Which theme would you like?',
+        'answers': ['Dark (Default)', 'Light', 'Custom'],
       },
       {
-        'questionText': 'Would you like to use a TOKEN?',
-        'answers': ['Yes', 'No', 'Hey'],
+        'questionText':
+            'Would you like to send private information to us to help improve the app?',
+        'answers': ['No (Default)', 'Yes'],
       },
     ];
     return MaterialApp(
       home: Scaffold(
+        // TODO: Implement background colors
         appBar: AppBar(
           backgroundColor: Colors.teal,
           centerTitle: true,
@@ -68,10 +72,10 @@ class _ChatAppState extends State<ChatApp> {
             Question(
               questions[_questionIndex]['questionText'] as String,
             ),
-            ...(questions[_questionIndex]['answers']as List<String>).map((answer) {
+            ...(questions[_questionIndex]['answers'] as List<String>)
+                .map((answer) {
               return Answer(_answerQuestion, answer);
             }).toList()
-
           ],
         ),
       ),
