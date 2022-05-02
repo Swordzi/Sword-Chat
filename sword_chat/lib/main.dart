@@ -2,6 +2,8 @@
 //
 // Version 3, 19 November 2007
 
+import './answer.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sword_chat/question.dart';
@@ -39,33 +41,37 @@ class _ChatAppState extends State<ChatApp> {
   @override
   Widget build(BuildContext context) {
     var questions = [
-      'Would you like to use an email?',
-      'Would you like to use a phone number?',
-      'Would you like to use a TOKEN?',
+      {
+        'questionText': 'Would you like to use an email?',
+        'answers': ['Yes', 'No', 'Hi'],
+      },
+      {
+        'questionText': 'Would you like to use a phone number?',
+        'answers': ['Yes', 'No', 'Hello'],
+      },
+      {
+        'questionText': 'Would you like to use a TOKEN?',
+        'answers': ['Yes', 'No', 'Hey'],
+      },
     ];
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('SwordChat!'),
+          backgroundColor: Colors.teal,
+          centerTitle: true,
+          title: const Text(
+            'Setup',
+          ),
         ),
         body: Column(
           children: [
-            Question(questions[_questionIndex]),
-            ElevatedButton(
-              child: const Text("Yes"),
-              onPressed: _answerQuestion,
+            Question(
+              questions[_questionIndex]['questionText'] as String,
             ),
-            ElevatedButton(
-              child: const Text('No'),
-              onPressed: _answerQuestion,
-            ),
-            ElevatedButton(
-              child: const Text("Other"),
-              onPressed: () => {
-                _answerQuestion,
-                print("Hi"),
-              },
-            )
+            ...(questions[_questionIndex]['answers']as List<String>).map((answer) {
+              return Answer(_answerQuestion, answer);
+            }).toList()
+
           ],
         ),
       ),
