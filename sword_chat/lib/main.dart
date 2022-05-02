@@ -2,47 +2,50 @@
 //
 // Version 3, 19 November 2007
 
-import './answer.dart';
+// Importing other files to use their widgets.
+import './setup.dart';
+import './endscreen.dart';
 
+// Importing foundation.dart for kDebugMode
+// Importing material.dart for basic stuff
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sword_chat/question.dart';
 
-void main() => runApp(const ChatApp());
+// Running the BUILD method below
+void main() => runApp(const MyApp());
 
-class ChatApp extends StatefulWidget {
-  const ChatApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return _ChatAppState();
+    return _MyAppState();
   }
 }
 
-class _ChatAppState extends State<ChatApp> {
+class _MyAppState extends State<MyApp> {
+  // Init variables
   bool pnumber = false;
   bool email = false;
   var _questionIndex = 0;
 
+  // Method to change the value of _questionIndex to show other questions
   void _answerQuestion() {
-    if (_questionIndex < 2) {
-      setState(() {
-        _questionIndex = _questionIndex + 1;
-      });
-      if (kDebugMode) {
-        print(_questionIndex);
-      }
-    } else {
-      if (kDebugMode) {
-        print("Too high number dummy");
-      }
+    // Checking if value is 2 or below to not send values that are over the allowed amount.
+
+    setState(() {
+      _questionIndex = _questionIndex + 1;
+    });
+    if (kDebugMode) {
+      print(_questionIndex);
     }
   }
 
+  // Main build method here:
   // Override is to tell flutter that we want to override the base widget.
   @override
   Widget build(BuildContext context) {
-    const questions = [
+    const _questions = [
       {
         'questionText': 'What would you like to use to authenticate yourself?',
         'answers': ['Phone Number', 'Email', 'Token'],
@@ -57,6 +60,7 @@ class _ChatAppState extends State<ChatApp> {
         'answers': ['No (Default)', 'Yes'],
       },
     ];
+    // Return the main widget tree
     return MaterialApp(
       home: Scaffold(
         // TODO: Implement background colors
@@ -67,17 +71,14 @@ class _ChatAppState extends State<ChatApp> {
             'Setup',
           ),
         ),
-        body: Column(
-          children: [
-            Question(
-              questions[_questionIndex]['questionText'] as String,
-            ),
-            ...(questions[_questionIndex]['answers'] as List<String>)
-                .map((answer) {
-              return Answer(_answerQuestion, answer);
-            }).toList()
-          ],
-        ),
+        // Checking if _questionIndex is less than the maximum amount of questions
+        body: _questionIndex < _questions.length
+            ? Setup(
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
+                questions: _questions,
+              )
+            : const EndScreen(),
       ),
     );
   }
