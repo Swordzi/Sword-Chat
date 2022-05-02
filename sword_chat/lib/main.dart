@@ -43,15 +43,15 @@ class _ChatAppState extends State<ChatApp> {
     var questions = [
       {
         'questionText': 'Would you like to use an email?',
-        'answers': ['Yes', 'No'],
+        'answers': ['Yes', 'No', 'Hi'],
       },
       {
         'questionText': 'Would you like to use a phone number?',
-        'answers': ['Yes', 'No'],
+        'answers': ['Yes', 'No', 'Hello'],
       },
       {
         'questionText': 'Would you like to use a TOKEN?',
-        'answers': ['Yes', 'No'],
+        'answers': ['Yes', 'No', 'Hey'],
       },
     ];
     return MaterialApp(
@@ -65,10 +65,13 @@ class _ChatAppState extends State<ChatApp> {
         ),
         body: Column(
           children: [
-            Question(questions[_questionIndex]),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
-            Answer(_answerQuestion),
+            Question(
+              questions[_questionIndex]['questionText'] as String,
+            ),
+            ...(questions[_questionIndex]['answers']as List<String>).map((answer) {
+              return Answer(_answerQuestion, answer);
+            }).toList()
+
           ],
         ),
       ),
